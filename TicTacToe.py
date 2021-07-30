@@ -9,14 +9,14 @@ class TicTacToe(Tk):
         Tk.__init__(self)
 
         self.config(background='black')
-        self.geometry(f'230x350+'
+        self.geometry(f'230x280+'
                       f'{int(self.winfo_screenwidth()/2 - 400/2)}+{int(self.winfo_screenheight()/2 - 500/2)}')
         self.iconphoto(True, PhotoImage(file='Da.png'))
         self.title('TicTacToe')
         # Set player 1 to None, value is going to change once X or O button is clicked
         self.lp1_choice = []
         # Check if position has been taken, using letter N to mark if position is NOT taken
-        self.checkposition = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', ]
+        self.check_position = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', ]
         # Frame linha 1
         self.button_frame1 = Frame(self, background='black')
         self.button_frame1.pack()
@@ -62,9 +62,9 @@ class TicTacToe(Tk):
                          command=lambda: self.change_x_o('b9'))
         self.b9.grid(row=2, column=2, padx=2, pady=2)
 
-        # Set all buttons to DISABLED state
+        # Set all buttons to DISABLED state and alson change there color at once
         for but in (self.b1, self.b2, self.b3, self.b4, self.b5, self.b6, self.b7, self.b8, self.b9):
-            but.config(state=DISABLED)
+            but.config(state=DISABLED, background='gray')
 
         self.choose_x_o_frame = Frame(self, background='black')
         self.choose_x_o_frame.pack()
@@ -74,20 +74,22 @@ class TicTacToe(Tk):
         self.ltxt = Label(self.choose_x_o_frame, text='Você quer ser X ou O?', font=('Verdana', 10),
                           bg='black', fg='white')
         self.ltxt.pack(anchor=N)
-        self.b_x = Button(self.bchoose_f, text='X', width=5, font=('Verdana', 10), command=lambda: self.choice('X'))
+        self.b_x = Button(self.bchoose_f, text='X', width=5, font=('Verdana', 10), command=lambda: self.choice('X'),
+                          background='gray')
         self.b_x.pack(side=LEFT, padx=5)
-        self.b_o = Button(self.bchoose_f, text='O', width=5, font=('Verdana', 10), command=lambda: self.choice('O'))
+        self.b_o = Button(self.bchoose_f, text='O', width=5, font=('Verdana', 10), command=lambda: self.choice('O'),
+                          background='gray')
         self.b_o.pack(side=LEFT)
 
         self.turn = 0
 
-    # Function to change button x and o to a restart and exit
+    # Function to change Button X and O to Restart and Exit
     def confinew(self):
         self.b_x.destroy()
         self.b_o.destroy()
-        reiniciar = Button(self.bchoose_f, text='Reiniciar', width=10, command=self.reiniciar)
+        reiniciar = Button(self.bchoose_f, text='Reiniciar', width=10, command=self.reiniciar, background='gray')
         reiniciar.pack(side=LEFT, padx=5)
-        sair = Button(self.bchoose_f, text='Sair', width=10, command=self.destroy)
+        sair = Button(self.bchoose_f, text='Sair', width=10, command=self.destroy, background='gray')
         sair.pack(side=LEFT)
 
     # Gets the x or o value for player 1
@@ -109,146 +111,148 @@ class TicTacToe(Tk):
         self.destroy()
         TicTacToe()
 
+    # It change the values X and O when a player plays
     def change_x_o(self, button):
         if button == 'b1':
-            if self.checkposition[0] in 'XO':
+            if self.check_position[0] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b1.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[0] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[0] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b1.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[0] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[0] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
         if button == 'b2':
-            if self.checkposition[1] in 'XO':
+            if self.check_position[1] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b2.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[1] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[1] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b2.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[1] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[1] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b3':
-            if self.checkposition[2] in 'XO':
+            if self.check_position[2] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b3.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[2] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[2] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b3.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[2] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[2] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b4':
-            if self.checkposition[3] in 'XO':
+            if self.check_position[3] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b4.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[3] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[3] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b4.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[3] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[3] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b5':
-            if self.checkposition[4] in 'XO':
+            if self.check_position[4] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b5.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[4] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[4] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b5.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[4] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[4] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b6':
-            if self.checkposition[5] in 'XO':
+            if self.check_position[5] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b6.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[5] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[5] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b6.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[5] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[5] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b7':
-            if self.checkposition[6] in 'XO':
+            if self.check_position[6] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b7.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[6] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[6] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b7.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[6] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[6] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b8':
-            if self.checkposition[7] in 'XO':
+            if self.check_position[7] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b8.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[7] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[7] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b8.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[7] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[7] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         if button == 'b9':
-            if self.checkposition[8] in 'XO':
+            if self.check_position[8] in 'XO':
                 messagebox.showwarning('Warning', 'Position already taken!')
             else:
                 if self. turn == 0:
                     self.b9.config(text=f'{self.lp1_choice[0]}')
-                    self.checkposition[8] = self.lp1_choice[0]
-                    print(self.checkposition)
+                    self.check_position[8] = self.lp1_choice[0]
+                    print(self.check_position)
                     self.turn = 1
                 else:
                     self.b9.config(text=f'{self.lp1_choice[1]}')
-                    self.checkposition[8] = self.lp1_choice[1]
-                    print(self.checkposition)
+                    self.check_position[8] = self.lp1_choice[1]
+                    print(self.check_position)
                     self.turn = 0
 
         self.check_winner()
 
+    # Check if there's a winner
     def check_winner(self):
         # Top horizontal
-        if ''.join(self.checkposition[:3]) == 'XXX' or ''.join(self.checkposition[:3]) == 'OOO':
+        if ''.join(self.check_position[:3]) == 'XXX' or ''.join(self.check_position[:3]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -260,7 +264,7 @@ class TicTacToe(Tk):
                 else:
                     self.destroy()
         # Middle horizontal
-        elif ''.join(self.checkposition[3:6]) == 'XXX' or ''.join(self.checkposition[3:6]) == 'OOO':
+        elif ''.join(self.check_position[3:6]) == 'XXX' or ''.join(self.check_position[3:6]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -272,7 +276,7 @@ class TicTacToe(Tk):
                 else:
                     self.destroy()
         # Bottom horizontal
-        elif ''.join(self.checkposition[6:]) == 'XXX' or ''.join(self.checkposition[6:]) == 'OOO':
+        elif ''.join(self.check_position[6:]) == 'XXX' or ''.join(self.check_position[6:]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -285,7 +289,7 @@ class TicTacToe(Tk):
                     self.destroy()
 
         # Diagonal 1
-        elif ''.join(self.checkposition[::4]) == 'XXX' or ''.join(self.checkposition[::4]) == 'OOO':
+        elif ''.join(self.check_position[::4]) == 'XXX' or ''.join(self.check_position[::4]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -298,7 +302,7 @@ class TicTacToe(Tk):
                     self.destroy()
 
         # Diagonal 2
-        elif ''.join(self.checkposition[2:7:2]) == 'XXX' or ''.join(self.checkposition[2:7:2]) == 'OOO':
+        elif ''.join(self.check_position[2:7:2]) == 'XXX' or ''.join(self.check_position[2:7:2]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -311,7 +315,7 @@ class TicTacToe(Tk):
                     self.destroy()
 
         # Top Vertical
-        elif ''.join(self.checkposition[:7:3]) == 'XXX' or ''.join(self.checkposition[:7:3]) == 'OOO':
+        elif ''.join(self.check_position[:7:3]) == 'XXX' or ''.join(self.check_position[:7:3]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -323,7 +327,7 @@ class TicTacToe(Tk):
                 else:
                     self.destroy()
         # Middle vertical
-        elif ''.join(self.checkposition[1:8:3]) == 'XXX' or ''.join(self.checkposition[1:8:3]) == 'OOO':
+        elif ''.join(self.check_position[1:8:3]) == 'XXX' or ''.join(self.check_position[1:8:3]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -335,7 +339,7 @@ class TicTacToe(Tk):
                 else:
                     self.destroy()
         # Bottom vertical
-        elif ''.join(self.checkposition[2::3]) == 'XXX' or ''.join(self.checkposition[2::3]) == 'OOO':
+        elif ''.join(self.check_position[2::3]) == 'XXX' or ''.join(self.check_position[2::3]) == 'OOO':
             if self.turn == 0:
                 if messagebox.askquestion('Winner', f'{self.lp1_choice[1]} Won the match. Play again?') == 'yes':
                     self.reiniciar()
@@ -347,7 +351,7 @@ class TicTacToe(Tk):
                 else:
                     self.destroy()
         # Otherwise
-        elif 'N' not in self.checkposition:
+        elif 'N' not in self.check_position:
             if messagebox.askquestion('Draw', 'Nobody won. Play again?') == 'yes':
                 self.reiniciar()
             else:
